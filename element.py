@@ -27,6 +27,8 @@ class Location(BaseLocation, tuple):
 
 		assert isinstance(x, int)
 		assert isinstance(y, int)
+		assert x >= 0
+		assert y >= 0
 
 		return super().__new__(cls, [x, y])
 

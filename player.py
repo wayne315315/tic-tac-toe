@@ -2,7 +2,7 @@ from abstractplayer import *
 from element import *
 from baseclass import *
 
-__all__ = ['QAlgorithm', 'QPlayer']
+__all__ = ['QAlgorithm', 'QPlayer', 'HumanPlayer']
 
 
 class QAlgorithm(BaseQ):
@@ -126,6 +126,37 @@ class QPlayer(ComputerPlayer):
 		else:
 
 			self.alg.update(self.his, gs)
+
+	def getIndex(self):
+
+		return self.index
+
+
+class HumanPlayer(BasePlayer):
+
+	def __init__(self, index: int):
+
+		self.index = Index(index)
+
+	def move(self, state:BaseState):
+
+		while True:
+			x = input('x: ')
+			y = input('y: ')
+
+			try:
+				action = Location(int(x), int(y))
+				assert state[action] == 0
+				
+				return action
+
+			except:
+				print("Retype valid x, y")
+
+
+	def recv(self, gs:GameStatus):
+
+		pass
 
 	def getIndex(self):
 

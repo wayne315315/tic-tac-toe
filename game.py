@@ -5,7 +5,7 @@ from baseclass import *
 from abstractgame import *
 from abstractplayer import *
 from element import *
-
+from player import QPlayer
 
 __all__ = ['ClassicGame', 'Board', 'Umpire']
 
@@ -40,7 +40,9 @@ class ClassicGame(TicTacToe):
 			if self.verbose:
 				print("=====")
 				print(state)
-				print("Player %i : %i" % (player.index, len(player.alg.qmap)))
+				if isinstance(player, QPlayer):
+					print("Player %i : %i" % (player.index, 
+						len(player.alg.qmap)))
 
 			if gameStatus is not GameStatus.InProgress:
 
@@ -97,25 +99,48 @@ class Board(StateInitializer, StateUpdate, GameStatusServer):
 			for j in range(c):
 
 				try:
-					yield (state[i, j], state[i, j+1], state[i, j+2])
+					x = state[Location(i, j)]
+					y = state[Location(i, j+1)]
+					z = state[Location(i, j+2)]
+
+					yield (x,y,z)
 				except IndexError:
+					pass
+				except AssertionError:
 					pass
 
 				try:
-					yield (state[i, j], state[i+1, j], state[i+2, j])
+					x = state[Location(i, j)]
+					y = state[Location(i+1, j)]
+					z = state[Location(i+2, j)]
+
+					yield (x,y,z)
 				except IndexError:
+					pass
+				except AssertionError:
 					pass
 
 				try:
-					yield (state[i, j], state[i+1, j+1], state[i+2, j+2])
+					x = state[Location(i, j)]
+					y = state[Location(i+1, j+1)]
+					z = state[Location(i+2, j+2)]
+
+					yield (x,y,z)
 				except IndexError:
 					pass
-
+				except AssertionError:
+					pass
+				
 				try:
-					yield (state[i, j], state[i+1, j-1], state[i+2, j-2])
+					x = state[Location(i, j)]
+					y = state[Location(i+1, j-1)]
+					z = state[Location(i+2, j-2)]
+
+					yield (x,y,z)
 				except IndexError:
 					pass
-
+				except AssertionError:
+					pass
 
 class Umpire(PlayerServer):
 

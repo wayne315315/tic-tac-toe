@@ -43,8 +43,9 @@ def main(args):
 
 	# demo
 	demo = ClassicGame(args.verbose)
+	players[0] = HumanPlayer(1)
 
-	for _ in range(5):
+	while True:
 		umpire.setPlayers(players)
 		demo.start(umpire, board, board, board)	
 
