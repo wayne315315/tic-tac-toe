@@ -4,8 +4,8 @@ from baseclass import *
 from abstractgame import *
 
 
-__all__ = ['BaseAlgorithm', 'BaseQ', 'QAlgorithm', 'BasePlayer', 
-		'ComputerPlayer', 'ValidPairsServer']
+__all__ = ['BaseAlgorithm', 'BaseQ', 'BasePlayer', 'ComputerPlayer', 
+		'ValidPairsServer']
 
 
 class BaseAlgorithm(ABC):
@@ -16,7 +16,7 @@ class BaseAlgorithm(ABC):
 class BaseQ(BaseAlgorithm):
 
 	@abstractmethod
-	def update(self, map: BaseValueMap, his: BaseHistory, gs: GameStatus):
+	def update(self, his: BaseHistory, gs: GameStatus):
 
 		pass
 
@@ -26,16 +26,9 @@ class BaseQ(BaseAlgorithm):
 		pass
 
 	@abstractmethod
-	def getAction(self, map: BaseValueMap, rec: BaseRecord) -> BaseLocation:
+	def getAction(self, rec: BaseRecord) -> BaseLocation:
 
 		pass
-
-
-class QAlgorithm(BaseQ):
-
-	def __init__(self, map: BaseValueMap):
-
-		self.map = map
 
 
 class BasePlayer(ABC):
@@ -77,15 +70,6 @@ class ComputerPlayer(BasePlayer):
 
 	@abstractmethod
 	def update(self, pair: BasePair):
-
-		pass
-
-
-class ValidPairsServer(ABC):
-
-	@staticmethod
-	@abstractmethod
-	def getValidPairs(state: BaseState) -> BaseValidPairs:
 
 		pass
 
