@@ -32,9 +32,9 @@ class PlayerServer(ABC):
 
 class StateUpdate(ABC):
 
-	@staticmethod
 	@abstractmethod
-	def updateState(state: BaseState, loc: BaseLocation, index: BaseIndex):
+	def updateState(self, state: BaseState, loc: BaseLocation, 
+			index: BaseIndex):
 
 		pass
 

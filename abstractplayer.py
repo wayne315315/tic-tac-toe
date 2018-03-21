@@ -4,8 +4,7 @@ from baseclass import *
 from abstractgame import *
 
 
-__all__ = ['BaseAlgorithm', 'BaseQ', 'BasePlayer', 'ComputerPlayer', 
-		'ValidPairsServer']
+__all__ = ['BaseAlgorithm', 'BaseQ', 'BasePlayer', 'ComputerPlayer']
 
 
 class BaseAlgorithm(ABC):
@@ -50,12 +49,6 @@ class BasePlayer(ABC):
 
 
 class ComputerPlayer(BasePlayer):
-
-	def __init__(self, index: BaseIndex, alg: BaseAlgorithm, his: BaseHistory):
-
-		self.index = index
-		self.alg = alg
-		self.his = his
 
 	@staticmethod
 	@abstractmethod

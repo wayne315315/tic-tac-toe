@@ -12,22 +12,35 @@ __all__ = ['ClassicGame', 'Board', 'Umpire']
 
 class ClassicGame(TicTacToe):
 
-	@staticmethod
-	def start(ps: PlayerServer, su: StateUpdate, gss: GameStatusServer, 
+	def __init__(self, verbose: bool = False):
+
+		self.verbose = verbose
+
+	def start(self, ps: PlayerServer, su: StateUpdate, gss: GameStatusServer, 
 			si: StateInitializer):
+
+		if self.verbose:
+			print("NewGame")
+			print("******")
 
 		state = si.getNewState()
 
 		while True:
+
 			player = ps.next()
 
 			index = player.getIndex()
 			action = player.move(state)
 
-			su.update(state, action, index)
+			su.updateState(state, action, index)
 			gameStatus = gss.check(state)
 
 			ps.update(gameStatus)
+
+			if self.verbose:
+				print("=====")
+				print(state)
+				print("Player %i : %i" % (player.index, len(player.alg.qmap)))
 
 			if gameStatus is not GameStatus.InProgress:
 
