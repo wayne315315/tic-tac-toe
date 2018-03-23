@@ -26,28 +26,37 @@ parser.add_argument("-t", "--tie", type=float, help="Fee per tie",
 parser.add_argument("-v", "--verbose", type=bool, help="Verbose or not",
 					default=True)
 
-@timefn
 def main(args):
 
 	show_setting(args)
 
-	game = ClassicGame()
 	board = Board(args.length, args.length)
 	algPara = (args.alpha, args.gamma, args.reward, args.tie, args.penalty)
 	players = [QPlayer(i+1, QAlgorithm(*algPara)) for i in range(args.nb)]
 	umpire = Umpire()
 
-	for _ in range(args.epochs):
+	train(args.epochs, players, umpire, board)
+
+	# demo
+	demo(args.verbose, players, umpire, board)
+
+@timefn
+def train(epochs, players, umpire, board):
+
+	game = ClassicGame()
+
+	for _ in range(epochs):
 		umpire.setPlayers(players)
 		game.start(umpire, board, board, board)
 
-	# demo
-	demo = ClassicGame(args.verbose)
+def demo(verbose, players, umpire, board):
+
+	demo = ClassicGame(verbose)
 	players[0] = HumanPlayer(1)
 
 	while True:
 		umpire.setPlayers(players)
-		demo.start(umpire, board, board, board)	
+		demo.start(umpire, board, board, board)
 
 def show_setting(args):
 

@@ -7,6 +7,7 @@ from abstractplayer import *
 from element import *
 from player import QPlayer
 
+
 __all__ = ['ClassicGame', 'Board', 'Umpire']
 
 
